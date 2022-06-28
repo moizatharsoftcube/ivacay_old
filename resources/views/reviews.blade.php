@@ -1,8 +1,9 @@
 @extends('layouts.main')
 @section('content')
+
     @push('css')
         <style>
-            
+
             .rate {
                 float: left;
                 height: 46px;

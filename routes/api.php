@@ -22,12 +22,17 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/hello', function(){
          dd(auth()->user()->tokens());
     });
-    
+
     //UI Package
     Route::get('/package', [ApiController::class, 'index']);
     Route::get('/package-by-country/{id}', [ApiController::class, 'countryPackages']);
     Route::post('/search/{id}', [ApiController::class, 'search']);
-    
+
+    //Review
+    Route::get('/reviews', [ApiController::class, 'reviews']);
+    Route::post('/send-review', [ApiController::class, 'submit_review']);
+
+
     //UI Auth
     Route::post('/logout', [HomeController::class, 'logout']);
 
