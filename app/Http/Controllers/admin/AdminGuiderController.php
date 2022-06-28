@@ -1,7 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
-
+namespace App\Http\Controllers\admin;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -22,7 +21,7 @@ class AdminGuiderController extends Controller
             $guides->profile_status = 0;
         }
         $guides->save();
-        
+
         return redirect()->route('admin_guiders');
     }
 }

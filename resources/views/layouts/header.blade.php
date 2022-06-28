@@ -18,7 +18,7 @@
                 <input type="checkbox" id="myCheck" onclick="myFunction()">
                 <label for="myCheck"></label>
               </div>
-            </div> 
+            </div>
           </div>
         </div>
         <div class="row">
@@ -69,5 +69,4 @@
   <!-- header strat -->
 
 
-    
-  
+
