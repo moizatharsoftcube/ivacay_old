@@ -104,7 +104,7 @@ class UIController extends EmailController
             $review_model->user_id = Auth::user()->id;
             $review_model->message = $request->message;
             $review_model->star = $request->rating;
-            $review_model->status = 1;
+            $review_model->status = 0;
             $review_model->save();
             if ($review_model->save()) {
                 return redirect()->route('UI_reviews')->with('success', 'submitted');
