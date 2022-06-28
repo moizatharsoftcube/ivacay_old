@@ -80,6 +80,14 @@ class VacationerPackageController extends Controller
         }
     }
 
+    public function pay_with(PackageModel $package){
+        if (Auth::check()) {
+            $package_id = $package->id;
+            return view('pay_with_ethereum', compact('package_id'));
+        } else {
+            return view('login');
+        }
+    }
 
     public function stripe_form(PackageModel $package)
     {

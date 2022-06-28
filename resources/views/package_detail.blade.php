@@ -26,7 +26,7 @@
                                 <h3>{{$package_detail->title}}</h3>
                             </div>
 
-                            <!-- <div class="evelinaro">
+                        <!-- <div class="evelinaro">
                                 <ul>
                                     <li><img src="{{asset('images/new_awatar.jpg')}}" class="img_fluid" alt=""></li>
                                     <li><a href="javascript:void(0)">evelinaro</a></li>
@@ -44,17 +44,19 @@
                             </div> -->
                             <div class="slider_products">
                                 <div class=" slider-for1">
-                                @foreach($package_detail->getImages as $img)
-                                    <div>
-                                        <div class="productMainDetail">
-                                            <a href="{{asset('packages/'.$img->title)}}" tabindex="0" data-fancybox="gallery">
-                                                <img src="{{asset('packages/'.$img->title)}}" class="img-fluid" alt="" />
-                                            </a>
+                                    @foreach($package_detail->getImages as $img)
+                                        <div>
+                                            <div class="productMainDetail">
+                                                <a href="{{asset('packages/'.$img->title)}}" tabindex="0"
+                                                   data-fancybox="gallery">
+                                                    <img src="{{asset('packages/'.$img->title)}}" class="img-fluid"
+                                                         alt=""/>
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @endforeach
+                                @endforeach
 
-                                    <!-- <div>
+                                <!-- <div>
                                         <div class="productMainDetail">
                                             <a href="{{asset('images/slick_2.jpg')}}" tabindex="0" data-fancybox="gallery">
                                                 <img src="{{asset('images/slick_2.jpg')}}" class="img-fluid" alt="" />
@@ -120,14 +122,15 @@
 
                                 </div>
                                 <div class=" slider-nav1">
-                                @foreach($package_detail->getImages as $img)
-                                    <div>
-                                        <div class="productlistBox">
-                                            <a href="javascript:void(0)"> <img src="{{asset('packages/'.$img->title)}}"
-                                                    class="img-responsive" alt=""></a>
+                                    @foreach($package_detail->getImages as $img)
+                                        <div>
+                                            <div class="productlistBox">
+                                                <a href="javascript:void(0)"> <img
+                                                        src="{{asset('packages/'.$img->title)}}"
+                                                        class="img-responsive" alt=""></a>
+                                            </div>
                                         </div>
-                                    </div>
-                                    @endforeach
+                                @endforeach
                                 <!--<div>
                                         <div class="productlistBox">
                                             <a href="javascript:void(0)">
@@ -182,7 +185,7 @@
 
                             </div>
 
-                            <!-- <div class="this_seller">
+                        <!-- <div class="this_seller">
                                 <div class="row">
                                     <div class="col-md-10 col-sm-10 col-xs-12">
                                         <div class="seller_head">
@@ -269,10 +272,10 @@
 
                             <div class="this_gig">
                                 <h6>About This Package</h6>
-                                <p>Title:   {{$package_detail->title}}</p>
-                                <p>Description:     {{$package_detail->description}}</p>
-                                <p>Price:   ${{$package_detail->price}}</p>
-                                <p>Guider:  {{$package_detail->getUser->username}}</p>
+                                <p>Title: {{$package_detail->title}}</p>
+                                <p>Description: {{$package_detail->description}}</p>
+                                <p>Price: ${{$package_detail->price}}</p>
+                                <p>Guider: {{$package_detail->getUser->username}}</p>
                                 <p>Is your brand a Modern Day Parisienne or do you go for Powerful Elegance? Artistic
                                     Souls and Sophisticated Minimalists will find something for themselves too.</p>
                                 <p>You can choose 1 of 5 logo styles and then mix and match your preferred color palette
@@ -290,11 +293,13 @@
                                 <hr>
                                 <h5>Style</h5>
                                 <strong>Minimalist</strong>
-                    <a href="{{route('Vacationer_stripe_form', $package_detail->id)}}" >Book Now</a>
+                                <a href="{{route('Vacationer_stripe_form', $package_detail->id)}}">Book Now With
+                                    Visa</a>
+                                <a href="{{route('UI_pay_with_form', $package_detail->id)}}">Book Now With Crypto</a>
 
                             </div>
 
-                            <!-- <div class="your_options">
+                        <!-- <div class="your_options">
                                 <h3>How it works</h3>
                                 <p>Here are the steps to complete your <span>Basic package</span> project: <i
                                         class="fa-solid fa-circle-info"></i></p>
@@ -814,7 +819,7 @@
                     </div>
 
 
-                    <!-- <div class="filter">
+                <!-- <div class="filter">
                         <h1>Filters</h1>
                         <form action="/action_page.php">
                             <input type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
@@ -1042,34 +1047,36 @@
                 <div class="col-md-4 col-sm-4 col-xs-12 mb-10">
                     <div class="main_scroll">
                         @foreach($guider_packages as $guider_package)
-                    <div class="row">
-                        <div class="col-md-12 col-sm-12 col-xs-12 m-20">
-                            <div class="my_revie">
-                                <div class="pro_main">
-                                    @foreach($guider_package->getImages as $key => $img)
-                                        @if($key == 0)
-                                    <div class="pro_img">
-                                                <img src="{{asset('packages/'.$img->title)}}"
-                                                    class="img-fluid" alt="">
-                                                </div>
+                            <div class="row">
+                                <div class="col-md-12 col-sm-12 col-xs-12 m-20">
+                                    <div class="my_revie">
+                                        <div class="pro_main">
+                                            @foreach($guider_package->getImages as $key => $img)
+                                                @if($key == 0)
+                                                    <div class="pro_img">
+                                                        <img src="{{asset('packages/'.$img->title)}}"
+                                                             class="img-fluid" alt="">
+                                                    </div>
                                                 @endif
                                             @endforeach
 
-                                    <div class="pro_text">
-                                        <div class="webster">
-                                            <h4><img src="{{asset('https://fiverr')}}-res.cloudinary.com/t_profile_thumb,q_auto,f_auto/attachments/profile/photo/6b705596713956936f7dd1c9176d9cee-1533547927922/7ba0d351-04b3-4826-8a55-7779ec09157c.png"
-                                                    class="img-fluid" alt="">{{$guider_package->getUser->username}}</h4>
-                                        </div>
-                                        <div class="draw">
-                                            <a href="{{route('Vacationer_package_detail', $guider_package->id)}}">{{$guider_package->title}}</a>
+                                            <div class="pro_text">
+                                                <div class="webster">
+                                                    <h4><img
+                                                            src="{{asset('https://fiverr')}}-res.cloudinary.com/t_profile_thumb,q_auto,f_auto/attachments/profile/photo/6b705596713956936f7dd1c9176d9cee-1533547927922/7ba0d351-04b3-4826-8a55-7779ec09157c.png"
+                                                            class="img-fluid"
+                                                            alt="">{{$guider_package->getUser->username}}</h4>
+                                                </div>
+                                                <div class="draw">
+                                                    <a href="{{route('Vacationer_package_detail', $guider_package->id)}}">{{$guider_package->title}}</a>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
                     @endforeach
-                        <!-- <div class="row">
+                    <!-- <div class="row">
                             <div class="col-md-12 col-sm-12 col-xs-12">
                                 <div class="my_revie">
                                     <div class="pro_main">
@@ -1113,13 +1120,11 @@
                                 </div>
                             </div>
                         </div> -->
-                </div>
-
+                    </div>
 
 
                 </div>
             </div>
-
 
 
     </section>
@@ -1845,7 +1850,7 @@
             line-height: 19px;
         }
 
-        .main_table .table>thead {
+        .main_table .table > thead {
             vertical-align: top;
         }
 
@@ -1887,11 +1892,11 @@
             border-radius: 50%;
         }
 
-        .tabel_text:hover input~.checkmark {
+        .tabel_text:hover input ~ .checkmark {
             background-color: #ccc;
         }
 
-        .tabel_text input:checked~.checkmark {
+        .tabel_text input:checked ~ .checkmark {
             background-color: #2196F3;
         }
 
@@ -1901,7 +1906,7 @@
             display: none;
         }
 
-        .tabel_text input:checked~.checkmark:after {
+        .tabel_text input:checked ~ .checkmark:after {
             display: block;
         }
 
@@ -2008,8 +2013,8 @@
             border-radius: 0;
             overflow-anchor: none;
             transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
-                border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
-                border-radius 0.15s ease;
+            border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out,
+            border-radius 0.15s ease;
             font-weight: 600;
         }
 
@@ -2427,36 +2432,36 @@
 @endpush
 
 @push('js')
-<script>
-    // product slider
-$(".slider-for1").slick({
-    autoplay: true,
-    autoplaySpeed: 20000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: true,
-    asNavFor: ".slider-nav1",
-  });
-  $(".slider-nav1").slick({
-    autoplay: true,
-    autoplaySpeed: 20000,
-    infinite: true,
-    slidesToShow: 7,
-    slidesToScroll: 1,
-    asNavFor: ".slider-for1",
-    dots: false,
-    arrows: false,
-    focusOnSelect: true,
-    responsive: [
-      {
-        breakpoint: 767,
-        settings: {
-          slidesToShow: 3,
-          slidesToScroll: 1,
-          vertical: false,
-        },
-      },
-    ],
-  });
-</script>
+    <script>
+        // product slider
+        $(".slider-for1").slick({
+            autoplay: true,
+            autoplaySpeed: 20000,
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            asNavFor: ".slider-nav1",
+        });
+        $(".slider-nav1").slick({
+            autoplay: true,
+            autoplaySpeed: 20000,
+            infinite: true,
+            slidesToShow: 7,
+            slidesToScroll: 1,
+            asNavFor: ".slider-for1",
+            dots: false,
+            arrows: false,
+            focusOnSelect: true,
+            responsive: [
+                {
+                    breakpoint: 767,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 1,
+                        vertical: false,
+                    },
+                },
+            ],
+        });
+    </script>
 @endpush

@@ -1,4 +1,4 @@
-a<?php
+<?php
 
 use App\Http\Controllers\admin\AdminAuthController;
 use Illuminate\Support\Facades\Route;
@@ -40,14 +40,14 @@ use App\Http\Controllers\FaceBookController;
 /**------------------------------------------------------------- Admin Routes Start --------------------------------------------------------------------**/
 /**Auth Routes */
     Route::get('/admin-login', function () {
-        
+
         return redirect()->route('admin_login');
     });
-    
+
     Route::get('/admin-login', [AdminAuthController::class, 'login'])->name('admin_login');
     Route::post('/admin/login-data', [AdminAuthController::class, 'login_data'])->name('login_data_page');
     Route::get('/admin/logout', [AdminAuthController::class, 'logout'])->name('admin_logout');
-    
+
 /** Admin Auth Middleware Starts */
 Route::group(['middleware'=>['protectedPage']], function(){
 
@@ -114,14 +114,14 @@ Route::group(['middleware'=>['protectedPage']], function(){
             Route::get('/admin/products-edit/{id?}', [AdminProductDetailsController::class, 'products_edit'])->name('admin_products_edit');
             Route::get('/admin/products-delete/{products?}', [AdminProductDetailsController::class, 'products_delete'])->name('admin_products_delete');
             Route::post('/admin/products-add-edit/{products?}', [AdminProductDetailsController::class, 'products_add_edit_data'])->name('admin_products_add_edit');
-    
+
     /**Job Routes */
     Route::get('/admin/job-list', [AdminJobController::class, 'job'])->name('admin_jobs');
     Route::get('/admin/job-add', [AdminJobController::class, 'job_add'])->name('admin_jobs_add');
     Route::get('/admin/job-edit/{id?}', [AdminJobController::class, 'job_edit'])->name('admin_jobs_edit');
     Route::get('/admin/job-delete/{job?}', [AdminJobController::class, 'job_delete'])->name('admin_jobs_delete');
     Route::post('/admin/job-add-edit/{job?}', [AdminJobController::class, 'job_add_edit_data'])->name('admin_jobs_add_edit');
-    
+
     Route::get('/admin/job-applications-list/{job_id?}', [AdminJobController::class, 'job_applications'])->name('admin_jobs_applications');
     Route::get('/admin/job-posted-list', [AdminJobController::class, 'jobs_applied_posted_list'])->name('admin_jobs_applied_posted_list');
     Route::get('/admin/job-pending-list', [AdminJobController::class, 'jobs_applied_pending_list'])->name('admin_jobs_applied_pending_list');
@@ -133,24 +133,24 @@ Route::group(['middleware'=>['protectedPage']], function(){
     /** Admin Guider Routes */
     Route::get('/admin/guider-list',[AdminGuiderController::class, 'guider'])->name('admin_guiders');
     Route::get('/admin/guider-profile-status/{guides?}',[AdminGuiderController::class, 'guides_profile_state_edit'])->name('admin_guides_profile_state_edit');
-    
+
     /** Admin Vacationer Routes */
     Route::get('/admin/vacationer-list',[AdminVacationerController::class, 'vacationer'])->name('admin_vacationers');
-    
+
     /** Admin Journey Routes */
     Route::get('/admin/journey-list',[AdminJourneyController::class, 'journey'])->name('admin_journeys');
-    
+
     /** Admin Membership Routes */
     Route::get('/admin/membership-list',[AdminMembershipController::class, 'membership'])->name('admin_memberships');
-    
+
     /** Admin Membership Plan Routes */
     Route::get('/admin/membership-plan-list',[AdminMembershipPlansController::class, 'membership_plan'])->name('admin_memberships_plans');
     // Route::get('/admin/membership-add', [AdminMembershipPlansController::class, 'membership_plan_add'])->name('admin_memberships_add');
     Route::get('/admin/membership-plan-edit/{id?}', [AdminMembershipPlansController::class, 'membership_plan_edit'])->name('admin_memberships_plans_edit');
     // Route::get('/admin/membership-delete/{membership?}', [AdminMembershipPlansController::class, 'membership_plan_delete'])->name('admin_memberships_delete');
     Route::post('/admin/membership-plan-add-edit/{membership_plan?}', [AdminMembershipPlansController::class, 'membership_plan_add_edit_data'])->name('admin_memberships_plans_add_edit');
-        
-    
+
+
     /** Package Requests Routes */
     Route::get('/admin/package-requests-list',[AdminMembershipController::class, 'package_requests'])->name('admin_package_requests');
 
@@ -162,48 +162,48 @@ Route::group(['middleware'=>['protectedPage']], function(){
 /** ===================================================================================================================================================**/
 
 /**------------------------------------------------------------- User Routes Start --------------------------------------------------------------------**/
-    
+
     /**User Auth Routes */
         Route::get('/sign-up', [UIController::class, 'sign_up'])->name('UI_sign_up');
         Route::post('/sign-up', [UIController::class, 'create_account'])->name('UI_create_account');
         Route::get('/login', [UIController::class, 'login'])->name('UI_login');
         Route::post('/loggedin', [UIController::class, 'loggedin'])->name('UI_loggedin');
         Route::get('/logout', [UIController::class, 'logout'])->name('UI_logout');
-    
+
     /**------------------------------------------------------------- Guider Routes Start --------------------------------------------------------------**/
-    
+
     /** Guider Middleware Start*/
     Route::group(['middleware'=>['guiderRoleMiddleware']], function(){
         // For stripe
         Route::get('guider-stripe-form/{membership?}', [GuiderController::class, 'stripe_form'])->name('Guider_stripe_form');
         Route::post('/payee', [GuiderController::class, 'event_stripe'])->name('stripe_post');
-    
+
         // Facebook Login URL
         Route::prefix('facebook')->name('facebook.')->group( function(){
             Route::get('auth', [FaceBookController::class, 'loginUsingFacebook'])->name('login');
             Route::get('callback', [FaceBookController::class, 'callbackFromFacebook'])->name('callback');
         });
     // =================================================================== GuiderController ===========================================================
-    
+
         /** JOBs */
         Route::get('guider-jobs', [GuiderController::class, 'index'])->name('Guider_index');
         Route::get('guider-orders-list', [GuiderController::class, 'orders_list'])->name('Guider_orders');
         Route::get('guider-applied-job/{job?}', [GuiderController::class, 'job_applied'])->name('Guider_job_applied');
-    
+
         Route::get('guider-job-portal', [GuiderController::class, 'job_portal'])->name('Guider_job_portal');
         Route::get('guider-profile', [GuiderController::class, 'guider_profile'])->name('Guider_profile');
         Route::post('update-guider-profile', [GuiderController::class, 'update_guider_profile'])->name('Guider_update_profile');
     // =================================================================== GuiderController ===========================================================
-    
-    
+
+
     // =================================================================== GuiderMembershipController =================================================
         Route::get('guider-membership-upgrade', [GuiderMembershipController::class, 'upgrade_membership_plan'])->name('Guider_upgrade_membership_plan');
         Route::get('guider-membership-plan', [GuiderMembershipController::class, 'membership_plan'])->name('Guider_membership_plan');
         Route::get('guider-alternate-membership-plan', [GuiderMembershipController::class, 'alternate_membership_plan'])->name('Guider_alternate_membership_plan');
         Route::get('guider-membership-subscription/{membership?}', [GuiderMembershipController::class, 'membership_subscription'])->name('Guider_membership_subscription');
     // =================================================================== GuiderMembershipController =================================================
-    
-    
+
+
     // =================================================================== GuiderPackageController ====================================================
         Route::get('guider-packages', [GuiderPackageController::class, 'guider_packages'])->name('Guider_packages');
         Route::get('guider-add-package', [GuiderPackageController::class, 'add_package'])->name('Guider_add_package');
@@ -213,33 +213,34 @@ Route::group(['middleware'=>['protectedPage']], function(){
     // =================================================================== GuiderPackageController ====================================================
     });
     /** Guider Middleware End*/
-    
+
     /**------------------------------------------------------------- Guider Routes End ----------------------------------------------------------------**/
-    
+
     /** ===============================================================================================================================================**/
-    
+
     /**------------------------------------------------------------- Vacationer Routes Start ----------------------------------------------------------**/
-    
+
     // ======================================================== VacationerPackageController ===========================================================
     Route::group(['middleware'=>['UiAuthMiddleware']], function(){
-        
+
         //STRIPE
         Route::get('vacationer-stripe-form/{package?}', [VacationerPackageController::class, 'stripe_form'])->name('Vacationer_stripe_form');
         Route::post('/package-payee', [VacationerPackageController::class, 'event_stripe'])->name('package_stripe_post');
-        
+        Route::get('/pay-with/{package?}', [VacationerPackageController::class, 'pay_with'])->name('UI_pay_with_form');
+
     });
-    
+
     Route::post('/search-packages', [VacationerPackageController::class, 'search_packages'])->name('Vacationer_search_packages');
     Route::get('/package-detail/{id?}', [VacationerPackageController::class, 'package_detail'])->name('Vacationer_package_detail');
     Route::get('/country-for-vacation', [VacationerPackageController::class, 'search_vacation_country'])->name('Vacationer_search_country');
-    
+
     Route::get('country-specific-packages/{country_id?}', [VacationerPackageController::class, 'country_specific_packages'])->name('UI_country_specific_packages');
     Route::get('country-specific-packages-map/{country_name?}', [VacationerPackageController::class, 'country_specific_packages_map'])->name('UI_country_specific_packages_map');
     Route::post('/package-request', [VacationerPackageController::class, 'package_request'])->name('Vacationer_package_request');
-    
-    
+
+
     // =================================================================== UiController ================================================
-    
+
     Route::get('/', [UIController::class, 'index'])->name('UI_index');
     Route::get('/build-your-package', [UIController::class, 'build_package'])->name('UI_build_package');
     Route::get('/for-guide', [UIController::class, 'for_guide'])->name('UI_for_guide');
@@ -249,30 +250,30 @@ Route::group(['middleware'=>['protectedPage']], function(){
     Route::post('/send-review', [UIController::class, 'submit_review'])->name('submit_review');
     Route::get('/faq', [UIController::class, 'faq'])->name('UI_faq');
     Route::get('/share-experience', [UIController::class, 'share_experience'])->name('UI_share_experience');
-    
+
     Route::get('/service-provider', [UIController::class, 'service_provider'])->name('UI_service_provider');
     Route::get('country-search', [UIController::class, 'search_country'])->name('UI_search_country');
-    
-    
+
+
     Route::get('/vacationer', [UIController::class, 'vacationer'])->name('UI_vacationer');
-    
+
     Route::get('/user-verified/{id?}', [UIController::class, 'user_verified'])->name('user_verified');
     Route::get('/plan-journey', [UIController::class, 'plan_journey'])->name('UI_plan_journey');
     Route::post('/contact-us', [UIController::class, 'contact_us'])->name('UI_contact_us');
-    
-    
+
+
     Route::get('/personal_concierge_service', [UIController::class, 'personal_concierge_service'])->name('UI_personal_concierge_service');
     Route::get('/personal_concierge_service2', [UIController::class, 'personal_concierge_service2'])->name('UI_personal_concierge_service2');
-    
+
     /**------------------------------------------------------------- Vacationer Routes End ------------------------------------------------------------**/
-    
+
     // Forgot Password
-        Route::get('/forgot-password', [UiController::class, 'forgotpasswordView'])->name('UI_forgot_Password');
-    
+        Route::get('/forgot-password', [UIController::class, 'forgotpasswordView'])->name('UI_forgot_Password');
+
     // Forgot Password Email Shoot
         Route::post('/forgot-password-email', [EmailController::class, 'forgotpassword'])->name('forgot_password_email');
 
-		Route::get('/reset-password/{user}', [UiController::class, 'reset_password'])->name('reset_password');
-		Route::post('/reset-password-data/{user}', [UiController::class, 'reset_password_data'])->name('reset_password_data');
+		Route::get('/reset-password/{user}', [UIController::class, 'reset_password'])->name('reset_password');
+		Route::post('/reset-password-data/{user}', [UIController::class, 'reset_password_data'])->name('reset_password_data');
 
 /**------------------------------------------------------------- User Routes End ----------------------------------------------------------------------**/
