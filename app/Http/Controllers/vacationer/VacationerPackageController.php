@@ -63,7 +63,7 @@ class VacationerPackageController extends Controller
 
                                             </tr>';
                     }
-                    $output .=  '
+                    $output .= '
                                     </tbody>
                                 </table>';
                     // dd($output);
@@ -80,14 +80,45 @@ class VacationerPackageController extends Controller
         }
     }
 
-    public function pay_with(PackageModel $package){
+    public function pay_with_meta(PackageModel $package)
+    {
         if (Auth::check()) {
             $package_id = $package->id;
-            return view('pay_with_ethereum', compact('package_id'));
+            $package_price = $package->price;
+            return view('pay_with_ethereum', compact('package_id','package_price'));
         } else {
             return view('login');
         }
     }
+    public function eth_conversion(Request $request, PackageModel $package)
+    {
+        $oneusd = 1/$request->eth_res_usd;
+        $pkg_eth = $oneusd * $package->price;
+        return response()->json(array('pkg_eth'=>$pkg_eth, 'message'=>'converted', 'status'=>1));
+    }
+    public function meta_form(Request $request, PackageModel $package)
+    {
+        $inv_no = rand('111111111', '999999999');
+
+        if ($request->hash && $request->from) {
+            //condition store database Order
+            $journey = new JourneysModel();
+            $journey->invoice_number = "meta".$inv_no;
+            $journey->user_id = auth()->user()->id;
+            $journey->guide_id = $package->user_id;
+            $journey->package_id = $package->id;
+            $journey->payment_type = "Through Meta";
+            $journey->meta_hash = $request->hash;
+            $journey->meta_from = $request->from;
+            $journey->total_price = $package->price;
+            $journey->status =1; //0=Process,1=completed,2=rejected
+            $journey->save();
+            return response()->json(['status'=>1,'message'=>'Payment Successful']);
+        } else {
+            return response()->json(['message'=>'Payment UnSuccessful']);
+        }
+    }
+
 
     public function stripe_form(PackageModel $package)
     {
@@ -104,7 +135,7 @@ class VacationerPackageController extends Controller
     {
         $package = PackageModel::find($req->package_id);
 
-        $invoice = rand(1999999999999999, 9999999999999999);
+        $inv_no = rand('111111111', '999999999');
         $user = Auth::user();
         $desc = $package->title;
         $price = $package->price;
@@ -113,12 +144,15 @@ class VacationerPackageController extends Controller
         if ($response['status'] == 'succeeded') {
             //condition store database Order
             $journey = new JourneysModel();
+            $journey->invoice_number = "stripe".$inv_no;
             $journey->user_id = auth()->user()->id;
             $journey->guide_id = $package->user_id;
             $journey->package_id = $package->id;
+            $journey->payment_type = "Through Stripe";
             $journey->payment_id = $response['id'];
             $journey->payment_url = $response['receipt_url'];
             $journey->total_price = $price;
+            $journey->status =1; //0=Process,1=completed,2=rejected
             $journey->save();
         } else {
             return back()->with('error', 'Check your inputs and try again');
@@ -126,13 +160,13 @@ class VacationerPackageController extends Controller
         return redirect(route('UI_index'))->with('success', 'Your vacation booked');
     }
 
-
     public function country_specific_packages_map($country_name)
     {
         $country_obj = CountryModel::where('name', $country_name)->first();
         $route = route('UI_country_specific_packages', [$country_obj->id]);
         return response()->json(['status' => 1, 'route' => $route]);
     }
+
     public function country_specific_packages($country_id)
     {
         $packages = PackageModel::where('country_id', $country_id)
@@ -142,6 +176,7 @@ class VacationerPackageController extends Controller
 
         return view('vacation_packages', compact('packages'));
     }
+
     public function package_request(Request $req)
     {
         $req->validate([

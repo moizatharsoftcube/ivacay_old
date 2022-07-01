@@ -225,10 +225,12 @@ Route::group(['middleware'=>['protectedPage']], function(){
 
         //STRIPE
         Route::get('vacationer-stripe-form/{package?}', [VacationerPackageController::class, 'stripe_form'])->name('Vacationer_stripe_form');
+        Route::post('vacationer-meta-form/{package?}', [VacationerPackageController::class, 'meta_form'])->name('Vacationer_meta_form');
         Route::post('/package-payee', [VacationerPackageController::class, 'event_stripe'])->name('package_stripe_post');
-        Route::get('/pay-with/{package?}', [VacationerPackageController::class, 'pay_with'])->name('UI_pay_with_form');
+        Route::get('/pay-with/{package?}', [VacationerPackageController::class, 'pay_with_meta'])->name('UI_pay_with_meta');
+        Route::post('/eth-conversion/{package?}', [VacationerPackageController::class, 'eth_conversion'])->name('eth_conversion');
 
-    });
+       });
 
     Route::post('/search-packages', [VacationerPackageController::class, 'search_packages'])->name('Vacationer_search_packages');
     Route::get('/package-detail/{id?}', [VacationerPackageController::class, 'package_detail'])->name('Vacationer_package_detail');
@@ -246,7 +248,7 @@ Route::group(['middleware'=>['protectedPage']], function(){
     Route::get('/for-guide', [UIController::class, 'for_guide'])->name('UI_for_guide');
     Route::get('/articles', [UIController::class, 'articles'])->name('UI_articles');
     Route::get('/about-us', [UIController::class, 'about_us'])->name('UI_about_us');
-    Route::get('/reviews', [UIController::class, 'reviews'])->name('UI_reviews');
+//    Route::get('/reviews', [UIController::class, 'reviews'])->name('UI_reviews');
     Route::post('/send-review', [UIController::class, 'submit_review'])->name('submit_review');
     Route::get('/faq', [UIController::class, 'faq'])->name('UI_faq');
     Route::get('/share-experience', [UIController::class, 'share_experience'])->name('UI_share_experience');

@@ -295,7 +295,7 @@
                                 <strong>Minimalist</strong>
                                 <a href="{{route('Vacationer_stripe_form', $package_detail->id)}}">Book Now With
                                     Visa</a>
-                                <a href="{{route('UI_pay_with_form', $package_detail->id)}}">Book Now With Crypto</a>
+                                <a href="{{route('UI_pay_with_meta', $package_detail->id)}}">Book Now With Crypto</a>
 
                             </div>
 
